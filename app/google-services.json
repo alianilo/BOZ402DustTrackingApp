@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "362927307392",
+    "project_id": "dust-tracking-app",
+    "storage_bucket": "dust-tracking-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362927307392:android:b3491182afe2871bf00465",
+        "android_client_info": {
+          "package_name": "com.example.dusttrackingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf1T5VQJAiBkdbw-2kwbRL-yO5vxfhYr0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
