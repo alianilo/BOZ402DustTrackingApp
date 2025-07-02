@@ -25,11 +25,29 @@ ESP32 + toz sensörü donanımından Bluetooth Low Energy (BLE) ile veri çeker;
 
 ## Mimari (MVVM)
 
-ESP32 ─BLE Notify─► BleViewModel ─StateFlow─► UI (Compose)
-│ │
-└─FirestoreWrite───┘
-LogsViewModel ◄────Firestore───────┐
-AdviceViewModel ──OpenAI gpt-4o────┘
+Donanım → BLE
+
+ESP32 + toz sensörü
+
+Her 3 sn’de bir ölçüm yapar, Bluetooth Low Energy Notify ile telefonu bilgilendirir.
+
+Uygulama Katmanı (Android)
+
+BleViewModel: Sensörden gelen veriyi alır, ekrana ve buluta iletir.
+
+LogsViewModel: Firestore’daki eski ölçümleri listeler, filtreler.
+
+AdviceViewModel: Son 1 saatin verisini OpenAI’ye gönderir, öneri alır.
+
+Bulut Servisleri
+
+Firebase Auth: E-posta/şifre ile giriş.
+
+Firestore: users/{uid}/dustLogs koleksiyonuna ölçümleri kaydeder.
+
+OpenAI GPT-4o-mini: Ölçümlere göre Türkçe tavsiye döndürür.
+
+Akış: Sensör - BleViewModel - Ekran & Firestore - AdviceViewModel - OpenAI - Tavsiye kartı
 
 
 * **UI** → Jetpack Compose + Material 3  
@@ -47,15 +65,17 @@ Esp32 için: dust_sensor_ble.ino
 # Sensör 10 s aralıkla μg/m³ notify etmeye başlar
 
 Proje Yapısı:
-app/
- ├─ ui/            # Compose ekranları
- ├─ viewmodel/     # BleViewModel, LogsViewModel, AdviceViewModel
- ├─ data/
- │   ├─ remote/    # OpenAiApi, OpenAiClient
- │   └─ ble/       # BleDataRepository
- └─ firmware/      # ESP32 Arduino kodu
+ ui/ # Compose ekranları
+viewmodel/ # BleViewModel, LogsViewModel, AdviceViewModel
+data/
+ remote/ # OpenAiApi, OpenAiClient
+ ble/ # BleDataRepository
+ 
+firmware/ # ESP32 Arduino kodu
 
 Ekran Görüntüleri:
+
+
 ![image](https://github.com/user-attachments/assets/b4fabc63-3bf1-40e3-a4c5-48fb4ef68278)
 ![image](https://github.com/user-attachments/assets/923788dd-c34b-4cf9-8e49-020ab6a2f161)
 ![image](https://github.com/user-attachments/assets/0596fdd5-5574-4881-9d07-55d8b9187632)
